@@ -117,3 +117,9 @@ ADMIN_URL = env.str(var="ADMIN_URL", default="admin/")
 #     },
 #     "root": {"level": "INFO", "handlers": ["console"]},
 # }
+
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "core.custom_api_exception.custom_exception_handler",
+    "DEFAULT_PAGINATION_CLASS": "core.custom_pagination.CustomPagination",
+    "PAGE_SIZE": 20,
+}
