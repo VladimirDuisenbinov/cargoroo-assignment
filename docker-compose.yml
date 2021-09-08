@@ -1,0 +1,29 @@
+version: "3"
+
+volumes:
+  local_postgres_data: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./docker/local/Dockerfile
+    container_name: cargoroo_assignment_django
+    depends_on:
+      - postgres
+    volumes:
+      - ./src:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  postgres:
+    image: postgres:12.3
+    container_name: cargoroo_assignment_postgres
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data:Z
+    env_file:
+      - ./.envs/.local/.postgres
